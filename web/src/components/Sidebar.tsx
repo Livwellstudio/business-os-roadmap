@@ -1,63 +1,60 @@
-type Page = 'dashboard' | 'projects' | 'inventory' | 'manufacturing' | 'site-visits' | 'qa' | 'financials' | 'design'
+export type Page = 'overview' | 'clients' | 'products' | 'suppliers' | 'manufacturing' | 'financials' | 'design' | 'collabs'
 
-const ITEMS: { id: Page; label: string; icon: string }[] = [
-  { id: 'dashboard',     label: 'Dashboard',     icon: 'M3 3h7v7H3zm11 0h7v7h-7zM3 14h7v7H3zm11 0h7v7h-7z' },
-  { id: 'projects',      label: 'Projects',      icon: 'M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z' },
-  { id: 'inventory',     label: 'Inventory',     icon: 'M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z' },
-  { id: 'manufacturing', label: 'Manufacturing', icon: 'M12 2a10 10 0 110 20A10 10 0 0112 2zm0 4v4l3 3' },
-  { id: 'site-visits',   label: 'Site Visits',   icon: 'M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z' },
-  { id: 'qa',            label: 'QA / QC',       icon: 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z' },
-  { id: 'financials',    label: 'Financials',    icon: 'M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6' },
-  { id: 'design',        label: 'Design',        icon: 'M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z' },
+const NAV: { id: Page; label: string; path: string }[] = [
+  { id:'overview',      label:'Overview',       path:'M3 3h7v7H3zm11 0h7v7h-7zM3 14h7v7H3zm11 0h7v7h-7z' },
+  { id:'clients',       label:'Clients',        path:'M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z' },
+  { id:'products',      label:'Products',       path:'M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z' },
+  { id:'suppliers',     label:'Suppliers',      path:'M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75' },
+  { id:'manufacturing', label:'Manufacturing',  path:'M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z' },
+  { id:'financials',    label:'Financials',     path:'M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6' },
+  { id:'design',        label:'Design & R&D',   path:'M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z' },
+  { id:'collabs',       label:'Collabs',        path:'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0' },
 ]
 
-interface Props {
-  current: Page
-  onNav: (p: Page) => void
-}
-
-export default function Sidebar({ current, onNav }: Props) {
+export default function Sidebar({ current, onNav }: { current: Page; onNav: (p: Page) => void }) {
   return (
-    <aside className="w-[220px] flex-shrink-0 bg-[#0a1018] border-r border-[#1a2e40] flex flex-col h-screen sticky top-0">
-      <div className="px-5 py-5 border-b border-[#1a2e40]">
-        <span className="text-[#c9a96e] text-base font-light tracking-[0.15em] uppercase">Livwell</span>
-        <p className="text-[9px] font-bold tracking-[0.25em] text-[#445a70] uppercase mt-0.5">Business OS</p>
+    <aside className="w-[220px] flex-shrink-0 bg-[#070b0e] border-r border-[#1b2c38] flex flex-col h-screen sticky top-0">
+      {/* Wordmark */}
+      <div className="px-5 pt-6 pb-5 border-b border-[#1b2c38]">
+        <div className="flex items-baseline gap-1.5">
+          <span className="text-[#c4935a] text-base font-light tracking-[0.18em] uppercase">LivWell</span>
+          <span className="text-[#2e4455] text-xs">Studio</span>
+        </div>
+        <p className="text-[9px] font-bold tracking-[0.28em] text-[#2e4455] uppercase mt-0.5">Business OS</p>
+        <p className="text-[9px] text-[#2e4455] mt-0.5">Mint Salon Pty Ltd</p>
       </div>
 
+      {/* Nav */}
       <nav className="flex-1 px-3 py-4 space-y-0.5 overflow-y-auto">
-        {ITEMS.map(item => {
+        {NAV.map(item => {
           const active = current === item.id
           return (
-            <button
-              key={item.id}
-              onClick={() => onNav(item.id)}
+            <button key={item.id} onClick={() => onNav(item.id)}
               className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm transition-all text-left ${
                 active
-                  ? 'bg-[#c9a96e]/10 text-[#c9a96e] font-medium'
-                  : 'text-[#8aa0b8] hover:bg-[#111e2b] hover:text-[#dce6f0]'
-              }`}
-            >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
-                <path d={item.icon} />
+                  ? 'bg-[#c4935a]/10 text-[#c4935a] font-medium border border-[#c4935a]/15'
+                  : 'text-[#5a7f95] hover:bg-[#0f1a23] hover:text-[#c8dce8]'
+              }`}>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+                <path d={item.path} />
               </svg>
               {item.label}
-              {active && <span className="ml-auto w-1 h-1 rounded-full bg-[#c9a96e]" />}
+              {active && <span className="ml-auto w-1.5 h-1.5 rounded-full bg-[#c4935a] opacity-70" />}
             </button>
           )
         })}
       </nav>
 
-      <div className="px-5 py-4 border-t border-[#1a2e40]">
-        <div className="flex items-center gap-2">
-          <div className="w-7 h-7 rounded-full bg-[#1a2e40] flex items-center justify-center text-[#c9a96e] text-xs font-bold">A</div>
+      {/* User */}
+      <div className="px-4 py-4 border-t border-[#1b2c38]">
+        <div className="flex items-center gap-2.5">
+          <div className="w-7 h-7 rounded-full bg-[#c4935a]/20 border border-[#c4935a]/30 flex items-center justify-center text-[#c4935a] text-xs font-bold">A</div>
           <div>
-            <p className="text-xs font-medium text-[#dce6f0]">Ari</p>
-            <p className="text-[9px] text-[#445a70]">info@livwell.studio</p>
+            <p className="text-xs font-semibold text-[#c8dce8]">Ari Sztern</p>
+            <p className="text-[9px] text-[#2e4455]">info@livwell.studio</p>
           </div>
         </div>
       </div>
     </aside>
   )
 }
-
-export type { Page }

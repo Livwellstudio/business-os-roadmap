@@ -1,11 +1,23 @@
 export type ProjectStatus = 'planning' | 'in-progress' | 'qa' | 'complete'
 export type ProductType   = 'sauna' | 'cold-plunge' | 'hot-tub' | 'pavilion' | 'steam'
+export type FieldType     = 'text' | 'number' | 'date' | 'textarea' | 'select' | 'url' | 'checkbox'
+
+export interface CustomFieldDef {
+  id: string
+  label: string
+  type: FieldType
+  required: boolean
+  options: string[]   // for select type
+  order: number
+  section: string     // grouping label, e.g. "Team", "Site", "Compliance"
+}
 
 export interface Project {
   id: string; client: string; location: string; product: string
   type: ProductType; value: number; status: ProjectStatus
   progress: number; stage: string; manager: string
   startDate: string; endDate: string
+  customFields: Record<string, string>
 }
 
 export interface InventoryItem {
@@ -77,10 +89,15 @@ export interface AppState {
   invoices: Invoice[]
   expenses: Expense[]
   designBriefs: DesignBrief[]
+  customFieldDefs: CustomFieldDef[]
 }
 
 export type AppAction =
   | { type: 'RESET' }
+  | { type: 'ADD_FIELD_DEF'; payload: CustomFieldDef }
+  | { type: 'UPD_FIELD_DEF'; payload: CustomFieldDef }
+  | { type: 'DEL_FIELD_DEF'; payload: string }
+  | { type: 'REORDER_FIELDS'; payload: CustomFieldDef[] }
   | { type: 'ADD_PROJECT';    payload: Project }
   | { type: 'UPD_PROJECT';    payload: Project }
   | { type: 'DEL_PROJECT';    payload: string }

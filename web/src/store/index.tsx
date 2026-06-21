@@ -10,6 +10,10 @@ function del<T extends { id: string }>(arr: T[], id: string) { return arr.filter
 function reducer(state: AppState, action: AppAction): AppState {
   switch (action.type) {
     case 'RESET': return seedState
+    case 'ADD_FIELD_DEF':   return { ...state, customFieldDefs: [...state.customFieldDefs, action.payload] }
+    case 'UPD_FIELD_DEF':   return { ...state, customFieldDefs: upd(state.customFieldDefs, action.payload) }
+    case 'DEL_FIELD_DEF':   return { ...state, customFieldDefs: del(state.customFieldDefs, action.payload) }
+    case 'REORDER_FIELDS':  return { ...state, customFieldDefs: action.payload }
     case 'ADD_PROJECT':   return { ...state, projects: [...state.projects, action.payload] }
     case 'UPD_PROJECT':   return { ...state, projects: upd(state.projects, action.payload) }
     case 'DEL_PROJECT':   return { ...state, projects: del(state.projects, action.payload) }

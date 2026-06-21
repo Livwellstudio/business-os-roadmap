@@ -9,9 +9,15 @@
     "dev": "ts-node src/index.ts",
     "test": "jest --coverage",
     "test:watch": "jest --watch",
-    "lint": "eslint src tests --ext .ts"
+    "lint": "eslint src tests --ext .ts",
+    "demo": "ts-node src/dashboard.ts"
   },
-  "keywords": ["business", "roadmap", "operating-system", "planning"],
+  "keywords": [
+    "business",
+    "roadmap",
+    "operating-system",
+    "planning"
+  ],
   "author": "Livwell Studio",
   "license": "MIT",
   "devDependencies": {
@@ -20,5 +26,8 @@
     "jest": "^29.7.0",
     "ts-jest": "^29.1.4",
     "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "chalk": "^4.1.2"
   }
 }
